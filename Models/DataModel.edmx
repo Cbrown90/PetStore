@@ -1,0 +1,277 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="DBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Animals">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nchar" MaxLength="15" />
+          <Property Name="Age" Type="int" />
+          <Property Name="Sex" Type="bit" />
+          <Property Name="TypeID" Type="int" />
+          <Property Name="OwnerID" Type="int" />
+          <Property Name="Date Arrived" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AnimalTypes">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Type" Type="nchar" MaxLength="15" Nullable="false" />
+          <Property Name="Price" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Owners">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Title" Type="nchar" MaxLength="10" />
+          <Property Name="Surname" Type="nchar" MaxLength="20" />
+          <Property Name="Forename" Type="nchar" MaxLength="20" />
+          <Property Name="Date Sold" Type="date" />
+        </EntityType>
+        <EntityType Name="Vaccinations">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="PetID" Type="int" />
+          <Property Name="Date " Type="date" />
+          <Property Name="Vac Type" Type="nchar" MaxLength="15" />
+        </EntityType>
+        <Association Name="fk_AnimalTypes">
+          <End Role="AnimalTypes" Type="Self.AnimalTypes" Multiplicity="0..1" />
+          <End Role="Animals" Type="Self.Animals" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AnimalTypes">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Animals">
+              <PropertyRef Name="TypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_OwnerID">
+          <End Role="Owners" Type="Self.Owners" Multiplicity="0..1" />
+          <End Role="Animals" Type="Self.Animals" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Owners">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Animals">
+              <PropertyRef Name="OwnerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_VaccedPet">
+          <End Role="Animals" Type="Self.Animals" Multiplicity="0..1" />
+          <End Role="Vaccinations" Type="Self.Vaccinations" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Animals">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Vaccinations">
+              <PropertyRef Name="PetID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DBModelStoreContainer">
+          <EntitySet Name="Animals" EntityType="Self.Animals" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AnimalTypes" EntityType="Self.AnimalTypes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Owners" EntityType="Self.Owners" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Vaccinations" EntityType="Self.Vaccinations" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="fk_AnimalTypes" Association="Self.fk_AnimalTypes">
+            <End Role="AnimalTypes" EntitySet="AnimalTypes" />
+            <End Role="Animals" EntitySet="Animals" />
+          </AssociationSet>
+          <AssociationSet Name="fk_OwnerID" Association="Self.fk_OwnerID">
+            <End Role="Owners" EntitySet="Owners" />
+            <End Role="Animals" EntitySet="Animals" />
+          </AssociationSet>
+          <AssociationSet Name="fk_VaccedPet" Association="Self.fk_VaccedPet">
+            <End Role="Animals" EntitySet="Animals" />
+            <End Role="Vaccinations" EntitySet="Vaccinations" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Animal">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="15" FixedLength="true" Unicode="true" />
+          <Property Name="Age" Type="Int32" />
+          <Property Name="Sex" Type="Boolean" />
+          <Property Name="TypeID" Type="Int32" />
+          <Property Name="OwnerID" Type="Int32" />
+          <Property Name="Date_Arrived" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="AnimalType" Relationship="Self.fk_AnimalTypes" FromRole="Animals" ToRole="AnimalTypes" />
+          <NavigationProperty Name="Owner" Relationship="Self.fk_OwnerID" FromRole="Animals" ToRole="Owners" />
+          <NavigationProperty Name="Vaccinations" Relationship="Self.fk_VaccedPet" FromRole="Animals" ToRole="Vaccinations" />
+        </EntityType>
+        <EntityType Name="AnimalType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Type" Type="String" MaxLength="15" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="Price" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Animals" Relationship="Self.fk_AnimalTypes" FromRole="AnimalTypes" ToRole="Animals" />
+        </EntityType>
+        <EntityType Name="Owner">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Title" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Surname" Type="String" MaxLength="20" FixedLength="true" Unicode="true" />
+          <Property Name="Forename" Type="String" MaxLength="20" FixedLength="true" Unicode="true" />
+          <Property Name="Date_Sold" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="Animals" Relationship="Self.fk_OwnerID" FromRole="Owners" ToRole="Animals" />
+        </EntityType>
+        <EntityType Name="Vaccination">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="PetID" Type="Int32" />
+          <Property Name="Date_" Type="DateTime" Precision="0" />
+          <Property Name="Vac_Type" Type="String" MaxLength="15" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="Animal" Relationship="Self.fk_VaccedPet" FromRole="Vaccinations" ToRole="Animals" />
+        </EntityType>
+        <Association Name="fk_AnimalTypes">
+          <End Role="AnimalTypes" Type="Self.AnimalType" Multiplicity="0..1" />
+          <End Role="Animals" Type="Self.Animal" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AnimalTypes">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Animals">
+              <PropertyRef Name="TypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_OwnerID">
+          <End Role="Owners" Type="Self.Owner" Multiplicity="0..1" />
+          <End Role="Animals" Type="Self.Animal" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Owners">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Animals">
+              <PropertyRef Name="OwnerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_VaccedPet">
+          <End Role="Animals" Type="Self.Animal" Multiplicity="0..1" />
+          <End Role="Vaccinations" Type="Self.Vaccination" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Animals">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Vaccinations">
+              <PropertyRef Name="PetID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Animals" EntityType="Self.Animal" />
+          <EntitySet Name="AnimalTypes" EntityType="Self.AnimalType" />
+          <EntitySet Name="Owners" EntityType="Self.Owner" />
+          <EntitySet Name="Vaccinations" EntityType="Self.Vaccination" />
+          <AssociationSet Name="fk_AnimalTypes" Association="Self.fk_AnimalTypes">
+            <End Role="AnimalTypes" EntitySet="AnimalTypes" />
+            <End Role="Animals" EntitySet="Animals" />
+          </AssociationSet>
+          <AssociationSet Name="fk_OwnerID" Association="Self.fk_OwnerID">
+            <End Role="Owners" EntitySet="Owners" />
+            <End Role="Animals" EntitySet="Animals" />
+          </AssociationSet>
+          <AssociationSet Name="fk_VaccedPet" Association="Self.fk_VaccedPet">
+            <End Role="Animals" EntitySet="Animals" />
+            <End Role="Vaccinations" EntitySet="Vaccinations" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DBModelStoreContainer" CdmEntityContainer="Entities">
+          <EntitySetMapping Name="Animals">
+            <EntityTypeMapping TypeName="DBModel.Animal">
+              <MappingFragment StoreEntitySet="Animals">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Age" ColumnName="Age" />
+                <ScalarProperty Name="Sex" ColumnName="Sex" />
+                <ScalarProperty Name="TypeID" ColumnName="TypeID" />
+                <ScalarProperty Name="OwnerID" ColumnName="OwnerID" />
+                <ScalarProperty Name="Date_Arrived" ColumnName="Date Arrived" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AnimalTypes">
+            <EntityTypeMapping TypeName="DBModel.AnimalType">
+              <MappingFragment StoreEntitySet="AnimalTypes">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Owners">
+            <EntityTypeMapping TypeName="DBModel.Owner">
+              <MappingFragment StoreEntitySet="Owners">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Surname" ColumnName="Surname" />
+                <ScalarProperty Name="Forename" ColumnName="Forename" />
+                <ScalarProperty Name="Date_Sold" ColumnName="Date Sold" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Vaccinations">
+            <EntityTypeMapping TypeName="DBModel.Vaccination">
+              <MappingFragment StoreEntitySet="Vaccinations">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="PetID" ColumnName="PetID" />
+                <ScalarProperty Name="Date_" ColumnName="Date " />
+                <ScalarProperty Name="Vac_Type" ColumnName="Vac Type" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

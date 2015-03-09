@@ -1,0 +1,30 @@
+﻿@model IEnumerable<PetStore.Models.Animal>
+    @{
+        ViewBag.Title = "EODReport";
+    }
+
+    <h2>EODReport</h2>
+
+    @foreach (var m in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => m.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => m.Age)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => m.Sex)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => m.TypeID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => m.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => m.Date_Arrived)
+            </td>
+        </tr>
+    }

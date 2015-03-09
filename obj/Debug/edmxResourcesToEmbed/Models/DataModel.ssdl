@@ -1,0 +1,96 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="DBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Animals">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="Name" Type="nchar" MaxLength="15" />
+    <Property Name="Age" Type="int" />
+    <Property Name="Sex" Type="bit" />
+    <Property Name="TypeID" Type="int" />
+    <Property Name="OwnerID" Type="int" />
+    <Property Name="Date Arrived" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="AnimalTypes">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="Type" Type="nchar" MaxLength="15" Nullable="false" />
+    <Property Name="Price" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Owners">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="Title" Type="nchar" MaxLength="10" />
+    <Property Name="Surname" Type="nchar" MaxLength="20" />
+    <Property Name="Forename" Type="nchar" MaxLength="20" />
+    <Property Name="Date Sold" Type="date" />
+  </EntityType>
+  <EntityType Name="Vaccinations">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="PetID" Type="int" />
+    <Property Name="Date " Type="date" />
+    <Property Name="Vac Type" Type="nchar" MaxLength="15" />
+  </EntityType>
+  <Association Name="fk_AnimalTypes">
+    <End Role="AnimalTypes" Type="Self.AnimalTypes" Multiplicity="0..1" />
+    <End Role="Animals" Type="Self.Animals" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AnimalTypes">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Animals">
+        <PropertyRef Name="TypeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_OwnerID">
+    <End Role="Owners" Type="Self.Owners" Multiplicity="0..1" />
+    <End Role="Animals" Type="Self.Animals" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Owners">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Animals">
+        <PropertyRef Name="OwnerID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_VaccedPet">
+    <End Role="Animals" Type="Self.Animals" Multiplicity="0..1" />
+    <End Role="Vaccinations" Type="Self.Vaccinations" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Animals">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Vaccinations">
+        <PropertyRef Name="PetID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="DBModelStoreContainer">
+    <EntitySet Name="Animals" EntityType="Self.Animals" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AnimalTypes" EntityType="Self.AnimalTypes" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Owners" EntityType="Self.Owners" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Vaccinations" EntityType="Self.Vaccinations" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="fk_AnimalTypes" Association="Self.fk_AnimalTypes">
+      <End Role="AnimalTypes" EntitySet="AnimalTypes" />
+      <End Role="Animals" EntitySet="Animals" />
+    </AssociationSet>
+    <AssociationSet Name="fk_OwnerID" Association="Self.fk_OwnerID">
+      <End Role="Owners" EntitySet="Owners" />
+      <End Role="Animals" EntitySet="Animals" />
+    </AssociationSet>
+    <AssociationSet Name="fk_VaccedPet" Association="Self.fk_VaccedPet">
+      <End Role="Animals" EntitySet="Animals" />
+      <End Role="Vaccinations" EntitySet="Vaccinations" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

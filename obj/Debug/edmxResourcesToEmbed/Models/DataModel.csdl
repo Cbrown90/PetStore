@@ -1,0 +1,102 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="DBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Animal">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="Name" Type="String" MaxLength="15" FixedLength="true" Unicode="true" />
+    <Property Name="Age" Type="Int32" />
+    <Property Name="Sex" Type="Boolean" />
+    <Property Name="TypeID" Type="Int32" />
+    <Property Name="OwnerID" Type="Int32" />
+    <Property Name="Date_Arrived" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="AnimalType" Relationship="Self.fk_AnimalTypes" FromRole="Animals" ToRole="AnimalTypes" />
+    <NavigationProperty Name="Owner" Relationship="Self.fk_OwnerID" FromRole="Animals" ToRole="Owners" />
+    <NavigationProperty Name="Vaccinations" Relationship="Self.fk_VaccedPet" FromRole="Animals" ToRole="Vaccinations" />
+  </EntityType>
+  <EntityType Name="AnimalType">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="Type" Type="String" MaxLength="15" FixedLength="true" Unicode="true" Nullable="false" />
+    <Property Name="Price" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Animals" Relationship="Self.fk_AnimalTypes" FromRole="AnimalTypes" ToRole="Animals" />
+  </EntityType>
+  <EntityType Name="Owner">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="Title" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+    <Property Name="Surname" Type="String" MaxLength="20" FixedLength="true" Unicode="true" />
+    <Property Name="Forename" Type="String" MaxLength="20" FixedLength="true" Unicode="true" />
+    <Property Name="Date_Sold" Type="DateTime" Precision="0" />
+    <NavigationProperty Name="Animals" Relationship="Self.fk_OwnerID" FromRole="Owners" ToRole="Animals" />
+  </EntityType>
+  <EntityType Name="Vaccination">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="PetID" Type="Int32" />
+    <Property Name="Date_" Type="DateTime" Precision="0" />
+    <Property Name="Vac_Type" Type="String" MaxLength="15" FixedLength="true" Unicode="true" />
+    <NavigationProperty Name="Animal" Relationship="Self.fk_VaccedPet" FromRole="Vaccinations" ToRole="Animals" />
+  </EntityType>
+  <Association Name="fk_AnimalTypes">
+    <End Role="AnimalTypes" Type="Self.AnimalType" Multiplicity="0..1" />
+    <End Role="Animals" Type="Self.Animal" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AnimalTypes">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Animals">
+        <PropertyRef Name="TypeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_OwnerID">
+    <End Role="Owners" Type="Self.Owner" Multiplicity="0..1" />
+    <End Role="Animals" Type="Self.Animal" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Owners">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Animals">
+        <PropertyRef Name="OwnerID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_VaccedPet">
+    <End Role="Animals" Type="Self.Animal" Multiplicity="0..1" />
+    <End Role="Vaccinations" Type="Self.Vaccination" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Animals">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Vaccinations">
+        <PropertyRef Name="PetID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Animals" EntityType="Self.Animal" />
+    <EntitySet Name="AnimalTypes" EntityType="Self.AnimalType" />
+    <EntitySet Name="Owners" EntityType="Self.Owner" />
+    <EntitySet Name="Vaccinations" EntityType="Self.Vaccination" />
+    <AssociationSet Name="fk_AnimalTypes" Association="Self.fk_AnimalTypes">
+      <End Role="AnimalTypes" EntitySet="AnimalTypes" />
+      <End Role="Animals" EntitySet="Animals" />
+    </AssociationSet>
+    <AssociationSet Name="fk_OwnerID" Association="Self.fk_OwnerID">
+      <End Role="Owners" EntitySet="Owners" />
+      <End Role="Animals" EntitySet="Animals" />
+    </AssociationSet>
+    <AssociationSet Name="fk_VaccedPet" Association="Self.fk_VaccedPet">
+      <End Role="Animals" EntitySet="Animals" />
+      <End Role="Vaccinations" EntitySet="Vaccinations" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

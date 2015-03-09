@@ -1,6 +1,38 @@
-﻿@{
+﻿@model PetStore.Models.Animal
+
+@{
     ViewBag.Title = "AddAnimal";
 }
 
 <h2>AddAnimal</h2>
+
+@using (Html.BeginForm(new { RetrunUrl = ViewBag.ReturnUrl }))
+{
+    <ol>
+        <li>
+            @Html.LabelFor(m => m.Name)
+            @Html.TextBoxFor(m => m.Name)
+        </li>
+        <li>
+            @Html.LabelFor(m => m.Age)
+            @Html.TextBoxFor(m => m.Age)
+        </li>
+        <li>
+            @Html.LabelFor(m => m.Sex)
+            @Html.TextBoxFor(m => m.Sex)
+        </li>
+        <li>
+            @Html.LabelFor(m => m.TypeID)
+            @Html.TextBoxFor(m => m.TypeID)
+        </li>
+        <li>
+            @Html.LabelFor(m => m.Date_Arrived)
+            @Html.TextBoxFor(m => m.Date_Arrived)
+        </li>
+    </ol>
+    
+    <input type="submit" value="AddAnimal" />
+    
+}
+
 
