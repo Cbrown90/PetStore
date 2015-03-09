@@ -17,12 +17,13 @@ namespace PetStore.Models
         public Animal()
         {
             this.Vaccinations = new HashSet<Vaccination>();
+            this.Date_Arrived = DateTime.Now;
         }
     
         public int Id { get; set; }
         public string Name { get; set; }
         public Nullable<int> Age { get; set; }
-        public Nullable<bool> Sex { get; set; }
+        public Nullable<int> Sex { get; set; }
         public Nullable<int> TypeID { get; set; }
         public Nullable<int> OwnerID { get; set; }
         public System.DateTime Date_Arrived { get; set; }
@@ -30,7 +31,5 @@ namespace PetStore.Models
         public virtual AnimalType AnimalType { get; set; }
         public virtual Owner Owner { get; set; }
         public virtual ICollection<Vaccination> Vaccinations { get; set; }
-
-
     }
 }

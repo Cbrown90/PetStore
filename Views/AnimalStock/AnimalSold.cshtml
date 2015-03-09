@@ -1,0 +1,23 @@
+﻿@model PetStore.Models.Animal
+@{
+    ViewBag.Title = "SellAnimal";
+}
+
+<h2> Animal Sold</h2>
+
+<p> Sold this animal:</p>
+
+    Name:
+@Html.DisplayFor(modelItem => Model.Name) <br />
+    Age:
+@Html.DisplayFor(modelItem => Model.Age) <br />
+    Sex:
+@Html.DisplayFor(modelItem => Model.Sex) <br />
+    Pet Type:
+@Html.DisplayFor(modelItem => Model.TypeID) <br />
+    Pet ID:
+@Html.DisplayFor(modelItem => Model.Id) <br />
+    Date Arrived:
+@Html.DisplayFor(modelItem => Model.Date_Arrived) <br />
+    Owner ID:
+@Html.DisplayFor(modelItem => Model.OwnerId) <br /> 

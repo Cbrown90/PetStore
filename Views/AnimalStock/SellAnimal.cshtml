@@ -1,5 +1,32 @@
-﻿@{
-    ViewBag.Title = "SellAnimal";
-}
+﻿@model PetStore.Models.Animal
+    @{
+        ViewBag.Title = "SellAnimal";
+    }
+    
+    <h2>SellAnimal</h2>
+    Name:
+    @Html.DisplayFor(modelItem => Model.Name) <br />
+    Age:
+    @Html.DisplayFor(modelItem => Model.Age) <br />
+    Sex:
+    @Html.DisplayFor(modelItem => Model.Sex) <br />
+    Pet Type:
+    @Html.DisplayFor(modelItem => Model.TypeID) <br />
+    Pet ID:
+    @Html.DisplayFor(modelItem => Model.Id) <br />
+    Date Arrived:
+    @Html.DisplayFor(modelItem => Model.Date_Arrived) <br />
 
-<h2>SellAnimal</h2>
+    <h3> Sell To:</h3>
+       <form method="POST" action="/AnimalStock/AnimalSold">
+    Title:
+            <input type="text" name="Title" value=""> <br />
+    Forename:
+           <input type="text" name="Forename" value=""><br />
+    Surname:
+           <input type="text" name="Surname" value=""><br />
+           
+           <input type="text" name="id" value=@Model.Id hidden>
+           
+           <input type="submit" value="Sell">
+</form>

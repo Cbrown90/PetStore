@@ -6,7 +6,7 @@
 
 <h2>AddAnimal</h2>
 
-@using (Html.BeginForm(new { RetrunUrl = ViewBag.ReturnUrl }))
+@using (Html.BeginForm("AnimalAdded",))
 {
     <ol>
         <li>
@@ -17,7 +17,7 @@
             @Html.LabelFor(m => m.Age)
             @Html.TextBoxFor(m => m.Age)
         </li>
-        <li>
+        <li>           
             @Html.LabelFor(m => m.Sex)
             @Html.TextBoxFor(m => m.Sex)
         </li>
@@ -25,13 +25,9 @@
             @Html.LabelFor(m => m.TypeID)
             @Html.TextBoxFor(m => m.TypeID)
         </li>
-        <li>
-            @Html.LabelFor(m => m.Date_Arrived)
-            @Html.TextBoxFor(m => m.Date_Arrived)
-        </li>
     </ol>
     
-    <input type="submit" value="AddAnimal" />
+    <input type="submit" value="Add Animal" />
     
 }
 

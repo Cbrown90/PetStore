@@ -4,15 +4,15 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="DBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="DBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Animals">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="nchar" MaxLength="15" />
           <Property Name="Age" Type="int" />
-          <Property Name="Sex" Type="bit" />
+          <Property Name="Sex" Type="int" />
           <Property Name="TypeID" Type="int" />
           <Property Name="OwnerID" Type="int" />
           <Property Name="Date Arrived" Type="datetime" Nullable="false" />
@@ -21,7 +21,7 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Type" Type="nchar" MaxLength="15" Nullable="false" />
           <Property Name="Price" Type="int" Nullable="false" />
         </EntityType>
@@ -29,7 +29,7 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Title" Type="nchar" MaxLength="10" />
           <Property Name="Surname" Type="nchar" MaxLength="20" />
           <Property Name="Forename" Type="nchar" MaxLength="20" />
@@ -39,7 +39,7 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="PetID" Type="int" />
           <Property Name="Date " Type="date" />
           <Property Name="Vac Type" Type="nchar" MaxLength="15" />
@@ -98,8 +98,7 @@
             <End Role="Vaccinations" EntitySet="Vaccinations" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="DBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -107,12 +106,12 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="None" />
           <Property Name="Name" Type="String" MaxLength="15" FixedLength="true" Unicode="true" />
           <Property Name="Age" Type="Int32" />
-          <Property Name="Sex" Type="Boolean" />
+          <Property Name="Sex" Type="Int32" />
           <Property Name="TypeID" Type="Int32" />
-          <Property Name="OwnerID" Type="Int32" />
+          <Property Name="OwnerID" Type="Int32" Nullable="true" />
           <Property Name="Date_Arrived" Type="DateTime" Nullable="false" Precision="3" />
           <NavigationProperty Name="AnimalType" Relationship="Self.fk_AnimalTypes" FromRole="Animals" ToRole="AnimalTypes" />
           <NavigationProperty Name="Owner" Relationship="Self.fk_OwnerID" FromRole="Animals" ToRole="Owners" />

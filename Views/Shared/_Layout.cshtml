@@ -8,11 +8,35 @@
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
-    @RenderBody()
 
-    @Scripts.Render("~/bundles/jquery")
-    @RenderSection("scripts", required: false)
+        <div class="container">
+            <div class="navbar-header">Pet Store</div>
+            <ul class="nav navbar-nav">
+                <li>
+                    @Html.ActionLink("Home", "index", "Home")
+                </li>
+                <li>
+                    @Html.ActionLink("Add Animal", "AddAnimal", "AnimalStock")
+                </li>
+                <li>
+                    @Html.ActionLink("End of Day Report", "EODReport", "AnimalStock")
+                </li>
+                <li>
+                    @Html.ActionLink("Vaccinate Check", "index", "VaccinationCheck")
+                </li>
+                <li>
+                    @Html.ActionLink("Vaccinate Animal", "VaccinateAnimal", "VaccinationCheck")
+                </li>
+            </ul>
+        </div>
+   
 
-    @Html.ActionLink("Home", "index", "Home")
+        @RenderBody()
+
+        @Scripts.Render("~/bundles/jquery")
+        @RenderSection("scripts", required: false)
+
+
+
 </body>
 </html>
