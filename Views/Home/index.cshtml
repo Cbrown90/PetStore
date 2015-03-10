@@ -8,52 +8,53 @@
     <h2>PetShop Home</h2>
 
 
+<div class="panel-heading">Animals in Stock</div>
+                      <table class="table">
+                          <tr>
+                              <td>
+                                  Name
+                              </td>
+                              <td>
+                                  Age
+                              </td>
+                              <td>
+                                  Sex
+                              </td>
+                              <td>
+                                  Animal Type
+                              </td>
+                              <td>
+                                  ID
+                              </td>
+                              <td>
+                                  Date Arrived
+                              </td>
+                          </tr>
+                          @foreach (var m in Model)
+                          {
+                              <tr>
+                                  <td>
+                                      @Html.DisplayFor(modelItem => m.Name)
+                                  </td>
+                                  <td>
+                                      @Html.DisplayFor(modelItem => m.Age)
+                                  </td>
+                                  <td>
+                                      @Html.DisplayFor(modelItem => m.SexId)
+                                  </td>
+                                  <td>
+                                      @Html.DisplayFor(modelItem => m.AnimalTypeString)
+                                  </td>
+                                  <td>
+                                      @Html.DisplayFor(modelItem => m.Id)
+                                  </td>
+                                  <td>
+                                      @Html.DisplayFor(modelItem => m.Date_Arrived)
+                                  </td>
+                                  <td>
+                                      @Html.ActionLink("Sell Animal", "SellAnimal", "AnimalStock", new { id = m.Id }, null)
+                                  </td>
+                              </tr>
 
-    @foreach (var m in Model)
-    {
-        <table>
-            <tr>
-                <td>
-                    Name
-                </td>
-                <td>
-                    Age
-                </td>
-                <td>
-                    Sex
-                </td>
-                <td>
-                    Animal Type
-                </td>
-                <td>
-                    ID
-                </td>
-                <td>
-                    Date Arrived
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => m.Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => m.Age)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => m.Sex)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => m.TypeID)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => m.Id)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => m.Date_Arrived)
-                </td>
-                <td>
-                    @Html.ActionLink("Sell Animal", "SellAnimal", "AnimalStock", new { id = m.Id }, null)
-                </td>
-            </tr>
-        </table>
-    }
+                          }
+                      </table>

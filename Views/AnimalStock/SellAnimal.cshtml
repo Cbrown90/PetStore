@@ -1,32 +1,45 @@
 ﻿@model PetStore.Models.Animal
-    @{
-        ViewBag.Title = "SellAnimal";
-    }
-    
-    <h2>SellAnimal</h2>
-    Name:
-    @Html.DisplayFor(modelItem => Model.Name) <br />
-    Age:
-    @Html.DisplayFor(modelItem => Model.Age) <br />
-    Sex:
-    @Html.DisplayFor(modelItem => Model.Sex) <br />
-    Pet Type:
-    @Html.DisplayFor(modelItem => Model.TypeID) <br />
-    Pet ID:
-    @Html.DisplayFor(modelItem => Model.Id) <br />
-    Date Arrived:
-    @Html.DisplayFor(modelItem => Model.Date_Arrived) <br />
+@{
+    ViewBag.Title = "SellAnimal";
+}
+<div class="col-lg-4">
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h2 class="panel-title">Sell Animal</h2>
+        </div>
+        <div class="panel-body">
+            Name:
+            @Html.DisplayFor(modelItem => Model.Name) <br />
+            Age:
+            @Html.DisplayFor(modelItem => Model.Age) <br />
+            Sex:
+            @Html.DisplayFor(modelItem => Model.SexId) <br />
+            Pet Type:
+            @Html.DisplayFor(modelItem => Model.AnimalTypeString) <br />
+            Pet ID:
+            @Html.DisplayFor(modelItem => Model.Id) <br />
+            Date Arrived:
+            @Html.DisplayFor(modelItem => Model.Date_Arrived) <br />
+        </div>
+    </div>
+</div>
+<div class="col-lg-4">
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h2 class="panel-title">Sell To</h2>
+        </div>
+        <div class="panel-body">
+            <div class="input-group">
+                <form method="POST" action="/AnimalStock/AnimalSold">
+                    <input type="text" name="Title" value="" placeholder="Title"> <br />
+                    <input type="text" name="Forename" value="" placeholder="Forename"><br />
+                    <input type="text" name="Surname" value="" placeholder="Surname"><br />
 
-    <h3> Sell To:</h3>
-       <form method="POST" action="/AnimalStock/AnimalSold">
-    Title:
-            <input type="text" name="Title" value=""> <br />
-    Forename:
-           <input type="text" name="Forename" value=""><br />
-    Surname:
-           <input type="text" name="Surname" value=""><br />
-           
-           <input type="text" name="id" value=@Model.Id hidden>
-           
-           <input type="submit" value="Sell">
+                        <input type="text" name="id" value=@Model.Id hidden>
+
+                        <input type="submit" value="Sell">
 </form>
+                </div>
+            </div>
+    </div>
+</div>

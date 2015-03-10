@@ -6,7 +6,7 @@
 
 <h2>AddAnimal</h2>
 
-@using (Html.BeginForm("AnimalAdded",))
+@using (Html.BeginForm("AnimalAdded"))
 {
     <ol>
         <li>
@@ -19,7 +19,7 @@
         </li>
         <li>           
             @Html.LabelFor(m => m.Sex)
-            @Html.TextBoxFor(m => m.Sex)
+            @Html.EnumDropDownListFor(m => m.SexId)
         </li>
         <li>
             @Html.LabelFor(m => m.TypeID)

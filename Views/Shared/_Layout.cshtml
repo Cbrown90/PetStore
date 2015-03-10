@@ -6,11 +6,12 @@
     <title>@ViewBag.Title</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+    @Styles.Render("~/Content/bootstrap.css")
 </head>
 <body>
 
         <div class="container">
-            <div class="navbar-header">Pet Store</div>
+            <div class="navbar-brand">Pet Store</div>
             <ul class="nav navbar-nav">
                 <li>
                     @Html.ActionLink("Home", "index", "Home")
