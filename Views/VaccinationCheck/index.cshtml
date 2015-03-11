@@ -1,5 +1,70 @@
-﻿@{
-    ViewBag.Title = "index";
-}
+﻿@model IEnumerable<PetStore.Models.Animal>
+    @{
+        ViewBag.Title = "index";
+    }
 
-<h2>index</h2>
+    <div class="col-lg-10">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h2 class="panel-title">Vac Animal</h2>
+            </div>
+            <div class="panel-body">
+                <div class="col-md-8 col-md-offset-1">
+
+
+                    <table class="table">
+                        <tr>
+                            <td>
+                                Name
+                            </td>
+                            <td>
+                                Age
+                            </td>
+                            <td>
+                                Sex
+                            </td>
+                            <td>
+                                Animal Type
+                            </td>
+                            <td>
+                                ID
+                            </td>
+                            <td>
+                                Date Last Vac
+                            </td>
+                        </tr>
+                        @foreach (var m in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => m.Name)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => m.Age)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => m.SexId)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => m.AnimalTypeString)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => m.Id)
+                                </td>
+                                <td>
+                                    @if (m.Vaccinations.Count >0)
+                                    { 
+                                    @Html.DisplayFor(modelItem => m.Vaccinations[m.Vaccinations.Count - 1].Date_)
+                                    }
+                                </td>
+                                <td>
+                                    @Html.ActionLink("Vac Animal", "VaccinateAnimal", "VaccinationCheck", new { id = m.Id }, null)
+                                </td>
+                            </tr>
+
+                        }
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>

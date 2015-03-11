@@ -1,55 +1,59 @@
-﻿@model IEnumerable<PetStore.Models.Animal>
+﻿@model IEnumerable<PetStore.Models.EODReport>
     @{
         ViewBag.Title = "EODReport";
     }
 
-    <h2>EODReport</h2>
 
-    @foreach (var m in Model)
-    {
-        <table>
-            <tr>
-                <td>
-                    Name
-                </td>
-                <td>
-                    Age
-                </td>
-                <td>
-                    Sex
-                </td>
-                <td>
-                    Animal Type
-                </td>
-                <td>
-                    ID
-                </td>
-                <td>
-                    Date Arrived
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => m.Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => m.Age)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => m.Sex)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => m.TypeID)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => m.Id)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => m.Date_Arrived)
-                </td>
-                <td>
-                    @Html.ActionLink("Sell Animal", "SellAnimal", "AnimalStock", new { id = m.Id }, null)
-                </td>
-            </tr>
-        </table>
-    }
+    <div class="col-lg-10">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h2 class="panel-title">End of Day Report</h2>
+            </div>
+            <div class="panel-body">
+                <div class="col-md-8 col-md-offset-1">
+
+
+                    <table class="table">
+                        <tr>
+                            <td>
+                                Animal
+                            </td>
+                            <td>
+                                Stock
+                            </td>
+                            <td>
+                                Sold Today
+                            </td>
+                            <td>
+                                Order
+                            </td>
+                        </tr>
+                        @foreach (var m in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => m.AnimalTypeString)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => m.InStock)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => m.SoldToday)
+                                </td>
+                                <td>
+                                    @Html.ActionLink("Order More", "StockUpAnimal", new { Id = m.TypeID })
+                                </td>
+                            </tr>
+
+                        }
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    Quick Fix For count 0 bug: <br />
+        @for(var i = 1; i < 8; i++)
+        {
+            @Html.ActionLink("Add Animal #" + i, "StockUpAnimal", new { Id = i }) <br />
+        }

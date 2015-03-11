@@ -4,31 +4,31 @@
     ViewBag.Title = "AddAnimal";
 }
 
-<h2>AddAnimal</h2>
+<div class="col-lg-4">
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h2 class="panel-title">Add Animal</h2>
+        </div>
+        <div class="panel-body">
+            <div class="col-md-3 col-md-offset-1">
+                @using (Html.BeginForm("AnimalAdded"))
+                {
 
-@using (Html.BeginForm("AnimalAdded"))
-{
-    <ol>
-        <li>
-            @Html.LabelFor(m => m.Name)
-            @Html.TextBoxFor(m => m.Name)
-        </li>
-        <li>
-            @Html.LabelFor(m => m.Age)
-            @Html.TextBoxFor(m => m.Age)
-        </li>
-        <li>           
-            @Html.LabelFor(m => m.Sex)
-            @Html.EnumDropDownListFor(m => m.SexId)
-        </li>
-        <li>
-            @Html.LabelFor(m => m.TypeID)
-            @Html.TextBoxFor(m => m.TypeID)
-        </li>
-    </ol>
-    
-    <input type="submit" value="Add Animal" />
-    
-}
+                    @Html.TextBoxFor(m => m.Name, new { placeholder = "Name" }) <br /><br />
+
+                    @Html.TextBoxFor(m => m.Age, new { placeholder = "Age" }) <br /><br />
+
+                    @Html.EnumDropDownListFor(m => m.SexId, new { placeholder = "Sex" }) <br /><br />
+
+                    @Html.TextBoxFor(m => m.TypeID, new { placeholder = "Animal Type ID" }) <br /><br />
+
+
+                    <input type="submit" value="Add Animal" />
+                }
+            </div>
+            </div>
+        </div>
+    </div>
+           
 
 

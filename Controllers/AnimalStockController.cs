@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using PetStore.Models;
+using System.Data.Entity.Validation;
 
 namespace PetStore.Controllers
 {
@@ -49,10 +50,19 @@ namespace PetStore.Controllers
 
         public ActionResult EODReport()
         {
+            //Error if no Animals exist
             Entities context = new Entities();
-            var Animals = context.Animals.ToList();
+            var EODReport =
+                context.Animals.GroupBy(a => a.TypeID)
+                .Select(g => new EODReport(){ 
+                    TypeID = g.Key,
+                    InStock = g.Select(s => s.TypeID).Count(),
+                    SoldToday = g.Select(s => s.Owner).Where(a => a.Date_Sold == DateTime.Today).Count()
+                });
 
-            return View(Animals);
+               
+
+            return View(EODReport.ToList());
         }
 
         public ActionResult SellAnimal(int id)
@@ -88,6 +98,27 @@ namespace PetStore.Controllers
                 return View();
             }
             
+        }
+
+        public ActionResult StockUpAnimal (int? id)
+        {
+            try { 
+            //Add Random num and name gens?
+            var newAnimal = new Animal();
+            newAnimal.Name = "Generic Name";
+            newAnimal.Sex = 0;
+            newAnimal.TypeID = id;
+            newAnimal.Date_Arrived = DateTime.Now;
+
+            Entities context = new Entities();
+            context.Animals.Add(newAnimal);
+            context.SaveChanges();
+            }
+            catch (DbEntityValidationException e)
+            {
+
+            }
+            return RedirectToAction("EODReport");
         }
 
     }
