@@ -12,6 +12,7 @@
         <AssociationConnector Association="DBModel.fk_AnimalTypes" ManuallyRouted="false" />
         <AssociationConnector Association="DBModel.fk_OwnerID" ManuallyRouted="false" />
         <AssociationConnector Association="DBModel.fk_VaccedPet" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="DBModel.Stock" Width="1.5" PointX="4.375" PointY="4.25" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
