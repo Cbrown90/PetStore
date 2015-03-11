@@ -5,9 +5,9 @@
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="None" />
-    <Property Name="Name" Type="String" MaxLength="15" FixedLength="true" Unicode="true" />
-    <Property Name="Age" Type="Int32" />
-    <Property Name="Sex" Type="Int32" DefaultValue="0" />
+    <Property Name="Name" Type="String" MaxLength="15" FixedLength="true" Unicode="true" Nullable="false" />
+    <Property Name="Age" Type="Int32" Nullable="false" />
+    <Property Name="Sex" Type="Int32" DefaultValue="0" Nullable="false" />
     <Property Name="TypeID" Type="Int32" Nullable="true" />
     <Property Name="OwnerID" Type="Int32" Nullable="true" />
     <Property Name="Date_Arrived" Type="DateTime" Nullable="false" Precision="3" />
@@ -98,16 +98,5 @@
       <End Role="Animals" EntitySet="Animals" />
       <End Role="Vaccinations" EntitySet="Vaccinations" />
     </AssociationSet>
-    <EntitySet Name="Stocks" EntityType="DBModel.Stock" />
   </EntityContainer>
-  <EntityType Name="Stock">
-    <Key>
-      <PropertyRef Name="StockId" />
-    </Key>
-    <Property Name="StockId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="StockName" Type="String" MaxLength="20" FixedLength="true" Unicode="true" />
-    <Property Name="StockQuantity" Type="Int32" />
-    <Property Name="StockBoughtFor" Type="Decimal" Precision="18" Scale="0" />
-    <Property Name="StockSellFor" Type="Decimal" Precision="18" Scale="0" />
-  </EntityType>
 </Schema>

@@ -29,6 +29,5 @@ namespace PetStore.Models
         public virtual DbSet<AnimalType> AnimalTypes { get; set; }
         public virtual DbSet<Owner> Owners { get; set; }
         public virtual DbSet<Vaccination> Vaccinations { get; set; }
-        public virtual DbSet<Stock> Stocks { get; set; }
     }
 }

@@ -7,6 +7,8 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using System.Linq;
+
 namespace PetStore.Models
 {
     using System;
@@ -22,14 +24,56 @@ namespace PetStore.Models
     
         public int Id { get; set; }
         public string Name { get; set; }
-        public Nullable<int> Age { get; set; }
-        public Nullable<int> Sex { get; set; }
+        public int Age { get; set; }
+        public int Sex { get; set; }
         public Nullable<int> TypeID { get; set; }
         public Nullable<int> OwnerID { get; set; }
         public System.DateTime Date_Arrived { get; set; }
-    
+
+        public Gender SexId
+        {
+            get { return (Gender) Sex; }
+            set { Sex = (int)value; }
+        }
+
+        public string AnimalTypeString
+        {
+            get
+            {
+                if (TypeID != null)
+                {
+                    Entities context = new Entities();
+                    var AnimalType = context.AnimalTypes.First(a => a.Id == TypeID);
+
+                    return AnimalType.Type;
+                }
+                else return "No Type Set";
+            }
+            set
+            {
+                if (value != null)
+                {
+                    Entities context = new Entities();
+                    var AnimalType = context.AnimalTypes.First(a => a.Type == value);
+
+                    if (AnimalType != null)
+                    {
+                        TypeID = AnimalType.Id;
+                    }
+                }
+            }
+        }
+
+
         public virtual AnimalType AnimalType { get; set; }
         public virtual Owner Owner { get; set; }
         public virtual ICollection<Vaccination> Vaccinations { get; set; }
+    }
+
+    public enum Gender
+    {
+        None = 0,
+        Male = 1,
+        Female
     }
 }

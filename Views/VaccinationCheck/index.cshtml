@@ -54,7 +54,7 @@
                                 <td>
                                     @if (m.Vaccinations.Count >0)
                                     { 
-                                    @Html.DisplayFor(modelItem => m.LastVac)
+                                    @Html.DisplayFor(modelItem => m.Vaccinations[m.Vaccinations.Count - 1].Date_)
                                     }
                                 </td>
                                 <td>
